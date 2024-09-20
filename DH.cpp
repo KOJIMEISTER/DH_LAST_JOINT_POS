@@ -8,7 +8,7 @@
 
 static constexpr float PI = 3.14159f;
 
-// Матрица перехода Денавита-Хартенберга: wikipedia.org/wiki/Denavit–Hartenberg_parameters
+// РњР°С‚СЂРёС†Р° РїРµСЂРµС…РѕРґР° Р”РµРЅР°РІРёС‚Р°-РҐР°СЂС‚РµРЅР±РµСЂРіР°: wikipedia.org/wiki/DenavitвЂ“Hartenberg_parameters
 void DH::MakeDHMatrix(const Joint& CurJoint, Matrix4D& ToMat) const
 {
 	ToMat.Set(0, 0, cos(CurJoint.Theta));
@@ -39,7 +39,7 @@ DH::Pos DH::GetPosFromMatrix(const Matrix4D& Mat) const
 
 DH::DH()
 {
-	// TODO: Добавить загрузку параметров DH через конфиг JSON
+	// TODO: Р”РѕР±Р°РІРёС‚СЊ Р·Р°РіСЂСѓР·РєСѓ РїР°СЂР°РјРµС‚СЂРѕРІ DH С‡РµСЂРµР· РєРѕРЅС„РёРі JSON
 	Joints.reserve(6);
 	Joints.emplace_back(0.f, 0.f, 0.213f, PI / 2.f);
 	Joints.emplace_back(0.f, -0.8f, 0.193f, 0.f);
@@ -51,8 +51,8 @@ DH::DH()
 
 DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
 {
-	// Чтобы не вызывать new много раз при вызове CalcLastJointPos переиспользуем матрицы,
-	// Все равно старые значения перезаписываются
+	// Р§С‚РѕР±С‹ РЅРµ РІС‹Р·С‹РІР°С‚СЊ new РјРЅРѕРіРѕ СЂР°Р· РїСЂРё РІС‹Р·РѕРІРµ CalcLastJointPos РїРµСЂРµРёСЃРїРѕР»СЊР·СѓРµРј РјР°С‚СЂРёС†С‹,
+	// Р’СЃРµ СЂР°РІРЅРѕ СЃС‚Р°СЂС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµР·Р°РїРёСЃС‹РІР°СЋС‚СЃСЏ
 	static Matrix4D BuffMat, BuffMatTmp, BuffMatJoint;
 	size_t JointsSize = Joints.size();
 	size_t ThetasSize = Thetas.size();
@@ -64,7 +64,7 @@ DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
 	{
 		Joints[i].Theta = Thetas[i];
 	}
-	// Выносим из цикла, чтобы избежать умножение на первом проходе
+	// Р’С‹РЅРѕСЃРёРј РёР· С†РёРєР»Р°, С‡С‚РѕР±С‹ РёР·Р±РµР¶Р°С‚СЊ СѓРјРЅРѕР¶РµРЅРёРµ РЅР° РїРµСЂРІРѕРј РїСЂРѕС…РѕРґРµ
 	MakeDHMatrix(Joints.front(), BuffMat);
 #ifdef JOINT_POS_ECHO
 	{
@@ -76,7 +76,7 @@ DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
 	{
 		MakeDHMatrix(Joints[i], BuffMatJoint);
 		DH::Matrix4D::Multiply(BuffMat, BuffMatJoint, BuffMatTmp);
-		// Чтобы присвоить произведение без выделения памяти
+		// Р§С‚РѕР±С‹ РїСЂРёСЃРІРѕРёС‚СЊ РїСЂРѕРёР·РІРµРґРµРЅРёРµ Р±РµР· РІС‹РґРµР»РµРЅРёСЏ РїР°РјСЏС‚Рё
 		DH::Matrix4D::Swap(BuffMat, BuffMatTmp);
 #ifdef JOINT_POS_ECHO
 		{

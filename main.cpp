@@ -1,4 +1,4 @@
-﻿#include "DH.h"
+#include "DH.h"
 
 int main()
 {
