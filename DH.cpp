@@ -112,27 +112,9 @@ DH::Matrix4D::Matrix4D()
 	}
 }
 
-DH::Matrix4D::Matrix4D(Matrix4D&& Mat) noexcept
-{
-	Matrix = Mat.Matrix;
-	Mat.Matrix = nullptr;
-}
-
 DH::Matrix4D::~Matrix4D()
 {
 	Clear();
-}
-
-DH::Matrix4D& DH::Matrix4D::operator=(Matrix4D&& Mat) noexcept
-{
-	if (&Mat == this)
-	{
-		return *this;
-	}
-	Clear();
-	Matrix = Mat.Matrix;
-	Mat.Matrix = nullptr;
-	return *this;
 }
 
 void DH::Matrix4D::Multiply(const Matrix4D& FirMat, const Matrix4D& SecMat, Matrix4D& ToMat)
