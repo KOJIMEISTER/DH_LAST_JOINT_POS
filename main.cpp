@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv[])
 {
-    //DH DHA{};
-    //DH::Pos XYZ = DHA.CalcLastJointPos({ 15.f, -50.f, -60.f, 95.f, 50.f, 0.f });
     QGuiApplication App(argc, argv);
     QQmlApplicationEngine Engine;
     QQuickStyle::setStyle("Material");

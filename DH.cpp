@@ -70,9 +70,9 @@ DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
     for (size_t i = 1; i < JointsSize; ++i)
     {
         MakeDHMatrix(Joints[i], BuffMatJoint);
-        DH::Matrix4D::Multiply(BuffMat, BuffMatJoint, BuffMatTmp);
+        Matrix4D::Multiply(BuffMat, BuffMatJoint, BuffMatTmp);
         // Чтобы присвоить произведение без выделения памяти
-        DH::Matrix4D::Swap(BuffMat, BuffMatTmp);
+        Matrix4D::Swap(BuffMat, BuffMatTmp);
 #ifdef JOINT_POS_ECHO
         {
             const Pos JointPos{ GetPosFromMatrix(BuffMat) };
@@ -83,8 +83,8 @@ DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
     return GetPosFromMatrix(BuffMat);
 }
 
-void DH::SetJoints(const std::vector<Joint>& Joints)
+void DH::SetJoints(std::vector<Joint>& Joints)
 {
     std::scoped_lock JointsLock(MutexJoints);
-    this->Joints = Joints;
+    this->Joints = std::move(Joints);
 }
