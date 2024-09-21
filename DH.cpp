@@ -1,4 +1,5 @@
 #include "DH.h"
+#include <math.h>
 
 //#define JOINT_POS_ECHO
 

@@ -3,8 +3,20 @@
 
 class DH
 {
+public:
+    struct Pos
+    {
+        float x{ 0.f };
+        float y{ 0.f };
+        float z{ 0.f };
+    };
+    DH();
+    ~DH() = default;
+
+    [[nodiscard]] Pos CalcLastJointPos(const std::vector<float>& Thetas);
+
+private:
 	class Matrix4D;
-	struct Pos;
 	struct Joint
 	{
 		float Theta{ 0.f };
@@ -17,23 +29,7 @@ class DH
 	void MakeDHMatrix(const Joint&, Matrix4D& ToMat) const;
 	Pos GetPosFromMatrix(const Matrix4D&) const;
 
-public:
-
-	struct Pos
-	{
-		float x{ 0.f };
-		float y{ 0.f };
-		float z{ 0.f };
-	};
-
-	DH();
-	~DH() = default;
-
-	[[nodiscard]] Pos CalcLastJointPos(const std::vector<float>& Thetas);
-
-private:
-
-	class Matrix4D
+    class Matrix4D
 	{
 		float** Matrix{ nullptr };
 		void Clear();
