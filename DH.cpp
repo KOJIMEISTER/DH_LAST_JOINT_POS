@@ -31,18 +31,6 @@ DH::Pos DH::GetPosFromMatrix(const Matrix4D& Mat) const
     return Pos{ Mat.At(0, 3), Mat.At(1, 3), Mat.At(2, 3) };
 }
 
-// DH::DH()
-// {
-// 	TODO: Добавить загрузку параметров DH через конфиг JSON
-//     Joints.reserve(6);
-//     Joints.emplace_back(0.f, 0.f, 0.213f, PI / 2.f);
-//     Joints.emplace_back(0.f, -0.8f, 0.193f, 0.f);
-//     Joints.emplace_back(0.f, -0.59f, -0.16f, 0.f);
-//     Joints.emplace_back(0.f, 0.f, 0.25f, PI / 2.f);
-//     Joints.emplace_back(0.f, 0.f, 0.28f, -PI / 2.f);
-//     Joints.emplace_back(0.f, 0.f, 0.25f, 0.f);
-// }
-
 DH::Pos DH::CalcLastJointPos(const std::vector<float>& Thetas)
 {
     // Чтобы не вызывать new много раз при вызове CalcLastJointPos переиспользуем матрицы,
