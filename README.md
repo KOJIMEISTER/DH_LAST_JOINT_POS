@@ -140,10 +140,6 @@ dh_last_joint_pos/
 
 [GNU General Public License v3.0](LICENSE)
 
-## Контакты
-
-Если у вас есть вопросы или предложения, свяжитесь со мной по адресу: [your.email@example.com](mailto:your.email@example.com)
-
 ---
 
 © 2023 KOJIMEISTER
